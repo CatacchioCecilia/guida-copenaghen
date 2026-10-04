@@ -213,6 +213,12 @@ h1 {
   color: var(--ink-soft);
 }
 
+.flight-note {
+  margin: 12px 0 0;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
 .info h3,
 .stop h2 {
   font-family: var(--serif);
