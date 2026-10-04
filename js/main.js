@@ -1,3 +1,9 @@
+document.documentElement.style.setProperty("--sea", "#ff6900");
+document.documentElement.style.setProperty("--sea-deep", "#ff6900");
+document.querySelectorAll(".hero, .page-hero, .stop-time, .day-card .side").forEach((el) => {
+  el.style.background = "#ff6900";
+});
+
 document.addEventListener("click", (event) => {
   const summary = event.target.closest(".story summary");
   if (!summary) return;
