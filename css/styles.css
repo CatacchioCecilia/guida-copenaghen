@@ -155,18 +155,13 @@ h1 {
 }
 
 .day-card {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  overflow: hidden;
-  min-height: 132px;
+  min-height: 64px;
+  padding: 16px 18px;
 }
 
-.day-card div:first-child {
-  padding: 18px 18px 16px;
-}
-
-.day-card .tiny,
 .tiny {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
@@ -179,39 +174,8 @@ h1 {
   font-family: var(--serif);
   font-weight: 500;
   font-size: 1.35rem;
-  margin: 6px 0 8px;
-  letter-spacing: -0.02em;
-}
-
-.day-card p {
   margin: 0;
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-}
-
-.day-card .side {
-  background: var(--sea-deep);
-  color: #f4efe6;
-  width: 86px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 16px 12px;
-  text-align: center;
-}
-
-.day-card .side b {
-  font-family: var(--serif);
-  font-size: 1.7rem;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.day-card .side span {
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.75;
+  letter-spacing: -0.02em;
 }
 
 .flights,
