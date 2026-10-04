@@ -8,6 +8,7 @@ document.querySelectorAll(".day-card .side, .btn:not(.ghost)").forEach((el) => {
 });
 
 document.addEventListener("click", (event) => {
+  if (event.target.closest(".listen")) return;
   const summary = event.target.closest(".story summary");
   if (!summary) return;
   const details = summary.parentElement;
@@ -15,6 +16,105 @@ document.addEventListener("click", (event) => {
     if (open !== details) open.removeAttribute("open");
   });
 });
+
+const EAR_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7.5 10.5c0-3.2 2.4-5.7 5.6-5.7 3.3 0 5.9 2.4 5.9 6.2 0 4.2-2.3 7.2-5.9 9.5"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7.5 10.5v2.8c0 1.6 1 2.7 2.4 3.2M5.8 13.2c.4 3.4 2.7 5.8 6.4 6.7"/></svg>`;
+
+let speechQueue = [];
+let activeListen = null;
+
+function italianVoice() {
+  const voices = window.speechSynthesis?.getVoices?.() || [];
+  return (
+    voices.find((voice) => voice.lang.toLowerCase().startsWith("it")) ||
+    voices.find((voice) => /italian|italiano/i.test(voice.name)) ||
+    null
+  );
+}
+
+function stopSpeech() {
+  speechQueue = [];
+  window.speechSynthesis?.cancel();
+  if (activeListen) {
+    activeListen.classList.remove("is-on");
+    activeListen.setAttribute("aria-pressed", "false");
+    activeListen.setAttribute("aria-label", "Ascolta");
+    activeListen = null;
+  }
+}
+
+function speakNext() {
+  if (!speechQueue.length) {
+    stopSpeech();
+    return;
+  }
+  const utterance = new SpeechSynthesisUtterance(speechQueue.shift());
+  utterance.lang = "it-IT";
+  const voice = italianVoice();
+  if (voice) utterance.voice = voice;
+  utterance.rate = 0.95;
+  utterance.onend = speakNext;
+  utterance.onerror = stopSpeech;
+  window.speechSynthesis.speak(utterance);
+}
+
+function storyParagraphs(details) {
+  return [...details.querySelectorAll("h3, p")]
+    .map((el) => el.textContent.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+}
+
+function toggleListen(details, button) {
+  if (activeListen === button) {
+    stopSpeech();
+    return;
+  }
+  stopSpeech();
+  const parts = storyParagraphs(details);
+  if (!parts.length) return;
+  details.setAttribute("open", "");
+  button.classList.add("is-on");
+  button.setAttribute("aria-pressed", "true");
+  button.setAttribute("aria-label", "Interrompi");
+  activeListen = button;
+  speechQueue = parts;
+  window.setTimeout(speakNext, 80);
+}
+
+function enhanceStories() {
+  if (!("speechSynthesis" in window)) return;
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.addEventListener("voiceschanged", italianVoice);
+
+  document.querySelectorAll("details.story").forEach((details) => {
+    const summary = details.querySelector("summary");
+    if (!summary || summary.querySelector(".listen")) return;
+
+    const label = document.createElement("span");
+    label.className = "story-label";
+    while (summary.firstChild) label.appendChild(summary.firstChild);
+    summary.appendChild(label);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "listen";
+    button.setAttribute("aria-label", "Ascolta");
+    button.setAttribute("aria-pressed", "false");
+    button.innerHTML = EAR_ICON;
+    summary.appendChild(button);
+
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleListen(details, button);
+    });
+
+    details.addEventListener("toggle", () => {
+      if (!details.open && activeListen === button) stopSpeech();
+    });
+  });
+}
+
+enhanceStories();
 
 const WEATHER_LABELS = {
   0: "Sereno",
