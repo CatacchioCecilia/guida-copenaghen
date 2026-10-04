@@ -1,7 +1,10 @@
-document.documentElement.style.setProperty("--sea", "#ff6900");
-document.documentElement.style.setProperty("--sea-deep", "#ff6900");
-document.querySelectorAll(".hero, .page-hero, .stop-time, .day-card .side").forEach((el) => {
-  el.style.background = "#ff6900";
+document.documentElement.style.setProperty("--sea", "#cf834b");
+document.documentElement.style.setProperty("--sea-deep", "#363b2b");
+document.querySelectorAll(".hero, .page-hero, .stop-time").forEach((el) => {
+  el.style.background = "#363b2b";
+});
+document.querySelectorAll(".day-card .side, .btn:not(.ghost)").forEach((el) => {
+  el.style.background = "#cf834b";
 });
 
 document.addEventListener("click", (event) => {

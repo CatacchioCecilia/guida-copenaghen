@@ -1,15 +1,17 @@
 :root {
-  --ink: #16202b;
-  --ink-soft: #4d5a68;
-  --paper: #f4efe6;
-  --paper-2: #e8e0d2;
-  --card: #fffdf8;
-  --sea: #ff6900;
-  --sea-deep: #ff6900;
-  --brick: #b43b2a;
-  --gold: #b8924a;
-  --line: rgba(22, 32, 43, 0.1);
-  --shadow: 0 14px 40px rgba(18, 28, 36, 0.08);
+  --ink: #363b2b;
+  --ink-soft: #91865b;
+  --paper: #ede1d2;
+  --paper-2: #d4d3c8;
+  --card: #f7f3ec;
+  --sea: #cf834b;
+  --sea-deep: #363b2b;
+  --brick: #cf834b;
+  --gold: #d2aa68;
+  --fog: #9aa4a9;
+  --peach: #d4aa8e;
+  --line: rgba(54, 59, 43, 0.12);
+  --shadow: 0 14px 40px rgba(54, 59, 43, 0.08);
   --serif: "Fraunces", "Times New Roman", serif;
   --sans: "Manrope", "Helvetica Neue", system-ui, sans-serif;
   --nav-h: calc(88px + env(safe-area-inset-bottom));
@@ -47,8 +49,8 @@ img { max-width: 100%; display: block; }
 
 .hero,
 .page-hero {
-  background: #ff6900;
-  color: #fffdf8;
+  background: var(--sea-deep);
+  color: #ede1d2;
   padding: 20px 0 28px;
 }
 
@@ -99,7 +101,7 @@ h1 {
 .lead {
   margin: 0;
   max-width: 38ch;
-  color: rgba(247, 241, 230, 0.88);
+  color: rgba(237, 225, 210, 0.88);
   font-size: 1.05rem;
 }
 
@@ -111,8 +113,8 @@ h1 {
 }
 
 .chip {
-  border: 1px solid rgba(247, 241, 230, 0.24);
-  background: rgba(255, 105, 0, 0.18);
+  border: 1px solid rgba(237, 225, 210, 0.28);
+  background: rgba(207, 131, 75, 0.22);
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 0.78rem;
@@ -181,7 +183,7 @@ h1 {
 
 .day-card .weather {
   margin: 14px 0 0;
-  color: var(--ink-soft);
+  color: var(--fog);
   font-size: 0.95rem;
 }
 
@@ -339,7 +341,7 @@ h1 {
 }
 
 .fact {
-  background: #f6f1e7;
+  background: #e8d5c4;
   border-radius: 12px;
   padding: 10px 12px;
   font-size: 0.95rem;
@@ -378,8 +380,8 @@ h1 {
 
 .btn.ghost {
   background: transparent;
-  color: var(--sea-deep);
-  border: 1px solid rgba(255, 105, 0, 0.35);
+  color: var(--sea);
+  border: 1px solid rgba(207, 131, 75, 0.4);
 }
 
 .story {
@@ -430,7 +432,7 @@ h1 {
   right: 0;
   bottom: 0;
   z-index: 20;
-  background: #fffdf8;
+  background: #f7f3ec;
   border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -458,13 +460,13 @@ h1 {
 
 .bottom-nav a.is-on,
 .bottom-nav a[aria-current="page"] {
-  background: #fff1e6;
-  color: var(--sea-deep);
+  background: #e8d5c4;
+  color: var(--sea);
 }
 
 .bottom-nav a.is-on b,
 .bottom-nav a[aria-current="page"] b {
-  color: var(--sea-deep);
+  color: var(--sea);
 }
 
 footer {
